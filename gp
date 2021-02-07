@@ -2,6 +2,6 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-python3 seqgen.py $1.hook $1.seq
-./cr sequencer_00 $1.seq $2
+python3 composer/seqgen.py hook/$1.hook seq/$1.seq
+./cr sequencer_00 seq/$1.seq $2
 
