@@ -20,12 +20,21 @@ void d(char* msg)
 }
 
 // flow
-int main(void)
+int main(int argc,char *argv[])
 {
   struct noteseq *seq00;
-
+  int iters=1;
+  int fd;
+  
+  if(argc!=3)
+  {
+    printf("usage: ./sequencer_00 <tune.seq> <niter>\n");
+    exit(0);
+  }
+  sscanf(argv[2],"%d",&iters);
+  
   // open the midi device for writing.
-  int fd=open(MIDI_DEVICE,O_WRONLY,0);
+  fd=open(MIDI_DEVICE,O_WRONLY,0);
   if(fd<0)
   {
     printf("Error: cannot open %s\n", MIDI_DEVICE);
@@ -33,10 +42,10 @@ int main(void)
   }
   
   // load sequence
-  seq00=loadseq("tune00.seq");
+  seq00=loadseq(argv[1]);
   
   // run sequence
-  playseq(10,seq00,fd);
+  playseq(iters,seq00,fd);
 
   close(fd);
   return 0;
